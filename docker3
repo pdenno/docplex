@@ -1,0 +1,16 @@
+FROM continuumio/anaconda3:latest
+
+# Install prerequisites
+RUN apt-get update && apt-get install -y gcc default-jre make vim tmux
+RUN conda create -n py35 python=3.5 anaconda
+CMD source activate py35
+RUN conda install -y -c r r-essentials r-rjava
+RUN conda install -y -c conda-forge jupyterhub
+RUN conda install -c IBMDecisionOptimization docplex cplex
+
+RUN git clone https://github.com/IBMDecisionOptimization/Decision-Optimization-with-CPLEX-samples.git
+
+RUN useradd --create-home --shell /bin/bash admin
+RUN echo "1234\n1234"  | passwd admin
+
+
